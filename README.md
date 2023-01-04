@@ -4,3 +4,7 @@
 ```js
 <motion.div>...</motion.div>
 ```
+- To add with UI libraries like Chakra or MUI
+```js
+<Box as={motion.div}>...</Box>
+```
