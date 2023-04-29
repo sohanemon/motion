@@ -1,4 +1,4 @@
-# Framer Motion Kick Start
+# Framer Motion Kickstart
 
 - Use `motion` keyword with the element you want to animate
 ```js
