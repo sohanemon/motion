@@ -69,7 +69,10 @@ function startAnimation() {
 ```
 
 > you can only animate children, not the parent
-
+To animate parent
+```ts
+animate(scope.current, { opacity: 1 }, { duration: 1 })
+```
 
 ## `motion.ts` file
 ```ts
