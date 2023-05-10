@@ -9,7 +9,7 @@
 <Box as={motion.div}>...</Box>
 ```
 
-- States or arguements basics:
+States or arguements basics:
   initial={{}} // introduced initial state
   animate={{}} // introduced animation state, cons: it animates on page load
   whileInView={{}} // introduced animation state, pros: it animates on component did mount
@@ -19,6 +19,57 @@
   { open && <Box as={motion.div}>...</Box> }
   </AnimatePresence>
   ```
+
+### Codemon
+
+```tsx
+ // #note don't forget to add React when you catch the type by hovering for typescript
+  function handleMouseMove(e: React.MouseEvent<HTMLDivElement, MouseEvent>) {
+    console.log(e.pageX);
+  }
+
+  return (
+    <div onMouseMove={(e) => handleMouseMove(e)}/>
+```
+
+### useTransform
+
+```ts
+const mouseX = useMotionValue(0);
+const width = useTransform(mouseX, [0, 300], [40, 100]);
+//   #note when mouseX = 0 then width = 40
+// and when mouseX = 300 then width = 100
+```
+
+### useAnimate: OnClick / Custom animation action
+
+```ts
+import { useAnimate } from 'framer-motion';
+```
+
+Then call this hook on top of the code it will return a tuple
+
+```tsx
+const [scope, animate] = useAnimate();
+```
+
+Then use `scope` as `ref` on any element.
+
+```tsx
+<div ref={scope}>{children}</div>
+```
+
+Then use `animate` function inside `useEffect` on any function to trigger the animation.
+
+```ts
+function startAnimation() {
+  animate('#image', { opacity: 0.5, x: -100 });
+  //   first param is the querySelector
+}
+```
+
+> you can only animate children, not the parent
+
 
 ## `motion.ts` file
 ```ts
