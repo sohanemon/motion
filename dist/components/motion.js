@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 import { jsx as _jsx } from "react/jsx-runtime";
 import { Slot } from '@radix-ui/react-slot';
@@ -14,14 +13,18 @@ const MotionComponent = motion(Component);
 MotionComponent.displayName = 'MotionComponent';
 const withVariants = (Comp) => 
 // eslint-disable-next-line react/display-name
+// @ts-ignore
 ({ ref, transition, always, whileInView, variants, ...props }) => {
     const id = useId();
-    return (_jsx(Comp, { ref: ref, variants: variants || defaultVariants, whileInView: !props.animate && (whileInView || 'visible'), viewport: { once: !always }, transition: {
+    return (_jsx(Comp, { 
+        // @ts-ignore
+        ref: ref, variants: variants || defaultVariants, whileInView: !props.animate && (whileInView || 'visible'), viewport: { once: !always }, transition: {
             delay: 0.1,
             duration: 0.3,
             type: 'tween',
             ...transition,
         }, ...props }, id));
 };
+// @ts-ignore
 const Motion = withVariants(MotionComponent);
 export default Motion;

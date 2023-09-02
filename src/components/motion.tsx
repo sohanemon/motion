@@ -1,4 +1,3 @@
-// @ts-nocheck
 'use client';
 
 import { Slot } from '@radix-ui/react-slot';
@@ -28,6 +27,7 @@ MotionComponent.displayName = 'MotionComponent';
 const withVariants =
   (Comp: typeof Component): typeof MotionComponent =>
   // eslint-disable-next-line react/display-name
+  // @ts-ignore
   ({
     ref,
     transition,
@@ -40,6 +40,7 @@ const withVariants =
     return (
       <Comp
         key={id}
+        // @ts-ignore
         ref={ref}
         variants={variants || defaultVariants}
         whileInView={!props.animate && (whileInView || 'visible')}
@@ -54,7 +55,7 @@ const withVariants =
       />
     );
   };
-
+// @ts-ignore
 const Motion = withVariants(MotionComponent);
 
 export default Motion;
