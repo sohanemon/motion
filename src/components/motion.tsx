@@ -5,6 +5,8 @@ import { Variants, motion } from 'framer-motion';
 import { ComponentPropsWithRef, ElementType, forwardRef, useId } from 'react';
 
 import { defaultVariants } from '../constants/variants';
+import { useMotion } from '../context/motion-provider';
+import { isDefined } from '../utils';
 
 interface MotionProps extends ComponentPropsWithRef<'div'> {
   as?: ElementType;
@@ -31,28 +33,42 @@ const withVariants =
   ({
     ref,
     always,
-    whileInView,
-    variants,
+    whileInView = {},
+    variants = {},
+    transition = {},
     ...props
   }: ComponentPropsWithRef<typeof MotionComponent>) => {
     const id = useId();
-    return (
-      <Comp
-        key={id}
-        // @ts-ignore
-        ref={ref}
-        variants={variants || defaultVariants}
-        whileInView={!props.animate && (whileInView || 'visible')}
-        viewport={{ once: !always }}
-        // transition={{
-        //   delay: 0.1,
-        //   duration: 0.3,
-        //   type: 'tween',
-        //   ...transition,
-        // }}
-        {...props}
-      />
-    );
+    const {
+      variants: contextVariants,
+      transition: contextTransition,
+      whileInView: contextWhileInView,
+      ...defaultValue
+    } = useMotion();
+    const passingProps = {
+      variants: { ...defaultVariants, ...contextVariants, ...variants },
+      whileInView:
+        !props.animate &&
+        ((isDefined(whileInView) && whileInView) ||
+          (isDefined(contextWhileInView) && contextWhileInView) ||
+          'visible'),
+      viewport: {
+        once:
+          typeof always !== 'undefined'
+            ? !always
+            : defaultValue?.viewport?.once,
+      },
+      transition: {
+        delay: 0.1,
+        duration: 0.3,
+        type: 'tween',
+        ...contextTransition,
+        ...transition,
+      },
+      ...defaultValue,
+      ...props,
+    }; // @ts-ignore
+    return <Comp key={id} ref={ref} {...passingProps} />;
   };
 // @ts-ignore
 const Motion = withVariants(MotionComponent);
