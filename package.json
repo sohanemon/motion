@@ -1,6 +1,6 @@
 {
   "name": "@sohanemon/motion",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "A helper for framer motion",
   "source": "./src/index.ts",
   "main": "./dist/index.js",

@@ -30,7 +30,6 @@ const withVariants =
   // @ts-ignore
   ({
     ref,
-    transition,
     always,
     whileInView,
     variants,
@@ -45,12 +44,12 @@ const withVariants =
         variants={variants || defaultVariants}
         whileInView={!props.animate && (whileInView || 'visible')}
         viewport={{ once: !always }}
-        transition={{
-          delay: 0.1,
-          duration: 0.3,
-          type: 'tween',
-          ...transition,
-        }}
+        // transition={{
+        //   delay: 0.1,
+        //   duration: 0.3,
+        //   type: 'tween',
+        //   ...transition,
+        // }}
         {...props}
       />
     );

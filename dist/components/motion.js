@@ -14,16 +14,11 @@ MotionComponent.displayName = 'MotionComponent';
 const withVariants = (Comp) => 
 // eslint-disable-next-line react/display-name
 // @ts-ignore
-({ ref, transition, always, whileInView, variants, ...props }) => {
+({ ref, always, whileInView, variants, ...props }) => {
     const id = useId();
     return (_jsx(Comp, { 
         // @ts-ignore
-        ref: ref, variants: variants || defaultVariants, whileInView: !props.animate && (whileInView || 'visible'), viewport: { once: !always }, transition: {
-            delay: 0.1,
-            duration: 0.3,
-            type: 'tween',
-            ...transition,
-        }, ...props }, id));
+        ref: ref, variants: variants || defaultVariants, whileInView: !props.animate && (whileInView || 'visible'), viewport: { once: !always }, ...props }, id));
 };
 // @ts-ignore
 const Motion = withVariants(MotionComponent);
