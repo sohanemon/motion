@@ -53,12 +53,11 @@ const withVariants =
           (isDefined(contextWhileInView) && contextWhileInView) ||
           'visible'),
       viewport: {
-        once: always ? false : defaultValue?.viewport?.once,
+        once: !!always ? false : defaultValue?.viewport?.once,
       },
       transition: {
         delay: 0.1,
         duration: 0.3,
-        type: 'tween',
         ...contextTransition,
         ...transition,
       },
